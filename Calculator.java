@@ -1,6 +1,8 @@
 import java.text.DecimalFormat;
 import java.util.EmptyStackException;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 // import java.util.Scanner;
 
 public class Calculator {
@@ -23,6 +25,7 @@ public class Calculator {
         Object[] RESULT = preProcessing(expression);
         //expression = expression.replaceAll(" ", ""); // 입력 문자열에서 공백 제거
 
+        boolean isFunction = (boolean)RESULT[2];    // 사용자 정의 함수인지를 판별
         boolean isSubstitution =(boolean)RESULT[1]; // 대입식인지 그냥 수식인지를 판별
         expression = (String)RESULT[0]; // 수식이면 수식이 ^에 대해 () 처리만 하고 나오고, 대입이라면 = 오른쪽 부분만이 ^처리 후에 나오게 된다
         // 결국, 수식이면 계산 한 값을 반환하면 되는 것이고, 대입이라면 계산 한 값을 x에 대입하면 되는 것이다
@@ -32,6 +35,10 @@ public class Calculator {
         if (isSubstitution) {
             // 대입식인 경우
             xValue = result;
+        }
+
+        if (isFunction){
+
         }
 
         // 직전 값에 대입하는 식
@@ -243,6 +250,7 @@ public class Calculator {
         expression = expression.trim();
 
         boolean isSubstitution = false;
+        boolean isFunction = false;
 
         if(checksubstitution(expression))
         {
@@ -256,7 +264,13 @@ public class Calculator {
 
             expression = expression.substring(index+1);
             expression = expression.trim();
-        }   
+        }
+
+        if(checkFunction(expression))
+        {
+            isFunction = true;
+            System.out.println("함수가 맞습니다.\n");
+        }
 
         if(!checkBracket(expression)) throw new ErrorHandler(ErrorType.Bracket_error);
 
@@ -344,6 +358,19 @@ public class Calculator {
         if (expression.length() >= 5 && expression.substring(0, 4).equals(checkStr)) return true;
 
         return false;
+    }
+
+    private static boolean checkFunction(String expression)
+    {
+        String regex = "@[a-z0-9]+\\[[^\\[\\]]*\\]\\s*=\\s*.*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(expression);
+
+        if (matcher.matches()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private static boolean checkBracket(String expression)

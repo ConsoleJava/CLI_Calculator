@@ -17,6 +17,9 @@ public class ErrorHandler extends Exception {
         case Bracket_error:
             System.out.println("preProcessing_괄호쌍 오류입니다\n");
             break;
+          case InValidTypeFunction_error:
+              System.out.println("preProcessing_잘못된 사용자 함수 정의 오류입니다\n");
+              break;
         case OperatorEnd_error:  //사용되고 있지 않은 오류 형태
         case DivideZero_error:
             System.out.println("performOperation_나누기 0 (수식) 오류입니다\n");
@@ -36,6 +39,6 @@ public class ErrorHandler extends Exception {
         case TempValueOutofBound_error:
             System.out.println("checkRangeResult_피연산자값 범위 초과 오류입니다\n");
             break;
-        }
+      }
     }
 }

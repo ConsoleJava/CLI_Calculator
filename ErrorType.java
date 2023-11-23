@@ -12,4 +12,5 @@ enum ErrorType {
   // Result Error
   ResultValueOutofBound_error, // 유효한 결과 범위 초과
   TempValueOutofBound_error, // 계산 과정에서 유효한 결과 범위 초과
+  InValidTypeFunction_error   // 잘못된 문법의 사용자 함수 정의 -> 상의가 필요함.
 }
