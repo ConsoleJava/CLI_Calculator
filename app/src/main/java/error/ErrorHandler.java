@@ -53,7 +53,7 @@ public class ErrorHandler extends Exception {
             break;
         // 함수, 변수 정의
         case FUNCTION_DEFINE_ERROR:
-            System.out.println("함수 정의부 문법 오류입니다. @함수면[%매개변수1, ...] = 수식 \n");
+            System.out.println("함수 정의부 문법 오류입니다. @함수명[%매개변수1, ...] = 수식 \n");
             break;
         case FUNCTION_PARAMETER_DUPLICATE_DEFINE_ERROR:
             System.out.println("중복된 이름의 매개변수가 사용되었습니다.\n");
